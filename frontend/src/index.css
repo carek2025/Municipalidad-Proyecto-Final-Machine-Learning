@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos base personalizados */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-municipal-background text-gray-900;
+  }
+}
+
+/* Componentes personalizados */
+@layer components {
+  .btn-primary {
+    @apply bg-municipal-primary text-white px-6 py-3 rounded-lg font-medium 
+           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+           focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 
+           disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-municipal-accent text-white px-6 py-3 rounded-lg font-medium 
+           hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 
+           focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 
+           disabled:cursor-not-allowed;
+  }
+  
+  .btn-outline {
+    @apply border border-municipal-primary text-municipal-primary px-6 py-3 rounded-lg 
+           font-medium hover:bg-municipal-primary hover:text-white focus:outline-none 
+           focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all 
+           duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 
+           hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .input-primary {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg 
+           focus:outline-none focus:ring-2 focus:ring-municipal-primary 
+           focus:border-transparent transition-all duration-200 
+           placeholder-gray-400;
+  }
+  
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .badge-urgent {
+    @apply bg-red-100 text-red-800;
+  }
+  
+  .badge-high {
+    @apply bg-orange-100 text-orange-800;
+  }
+  
+  .badge-medium {
+    @apply bg-blue-100 text-blue-800;
+  }
+  
+  .badge-low {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .badge-pending {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  .badge-completed {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .badge-in-progress {
+    @apply bg-blue-100 text-blue-800;
+  }
+}
+
+/* Utilidades personalizadas */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+/* Animaciones personalizadas */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(10px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}

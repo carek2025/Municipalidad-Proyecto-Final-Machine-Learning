@@ -1,0 +1,36 @@
+{
+  "name": "municipalidad-frontend",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "rsync -av dist/ usuario@servidor:/var/www/municipalidad/"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "axios": "^1.5.0",
+    "lucide-react": "^0.263.1",
+    "recharts": "^2.7.3",
+    "jspdf": "^2.5.1",
+    "html2canvas": "^1.4.1",
+    "date-fns": "^2.30.0",
+    "react-query": "^3.39.3",
+    "react-hook-form": "^7.45.4",
+    "framer-motion": "^10.16.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9"
+  }
+}
