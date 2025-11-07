@@ -5,7 +5,7 @@ import User from '../models/User.js';
 class NotificacionesService {
   constructor() {
     // Configuración de email (usando Gmail como ejemplo)
-    this.transporter = nodemailer.createTransporter({
+    this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,

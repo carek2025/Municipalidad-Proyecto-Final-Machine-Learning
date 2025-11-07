@@ -202,16 +202,10 @@ const TramitesTable = ({ tramites, currentPage, totalPages, onPageChange, userRo
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex justify-end space-x-2">
                       <Link to={`/tramites/${tramite._id}`}>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          icon={Eye}
-                          title="Ver detalles"
-                        >
-                          Ver
-                        </Button>
-                      </Link>
-                      
+  			<Button variant="outline" size="sm" icon={Eye}>
+  			  Ver detalles
+  			</Button>
+		      </Link>                      
                       {canDownloadPDF(tramite) && (
                         <Button
                           variant="outline"

@@ -28,21 +28,41 @@ const TramiteForm = ({ onSubmit, loading, onCancel }) => {
       if (watchDescripcion && watchDescripcion.length > 10) {
         setAnalyzing(true)
         try {
+	  console.log('🔄 Iniciando análisis de urgencia...');
           const analysis = await mlService.predecirUrgencia(watchDescripcion)
-          if (analysis.success) {
+          console.log('📊 Análisis completado:', analysis);
+
+	  if (analysis.success && analysis.prediction) {
             setUrgencyAnalysis(analysis.prediction)
             // Auto-seleccionar prioridad basada en el análisis
             setValue('prioridad', analysis.prediction.priority)
+          } else {
+            console.warn('⚠️ Análisis falló:', analysis);
+            setUrgencyAnalysis({
+              priority: 'MEDIA',
+              urgency_score: 50,
+              confidence: 0.5,
+              fallback: true,
+              error: 'Análisis no disponible'
+            });
           }
         } catch (error) {
-          console.error('Error analizando urgencia:', error)
+          console.error('❌ Error analizando urgencia:', error);
+          setUrgencyAnalysis({
+            priority: 'MEDIA', 
+            urgency_score: 50,
+            confidence: 0.5,
+            fallback: true,
+            error: error.message
+          });
         } finally {
-          setAnalyzing(false)
+          setAnalyzing(false);
         }
       } else {
-        setUrgencyAnalysis(null)
+        setUrgencyAnalysis(null);
       }
-    }
+    };
+
 
     const timeoutId = setTimeout(analyzeUrgency, 1000)
     return () => clearTimeout(timeoutId)
@@ -57,13 +77,24 @@ const TramiteForm = ({ onSubmit, loading, onCancel }) => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index))
   }
 
-  const onSubmitForm = (data) => {
-    const formData = {
-      ...data,
-      datosTramite: JSON.stringify({}),
-      documentos: selectedFiles
+  const onSubmitForm = async (data) => {
+    try {
+      // Crear FormData para enviar archivos
+      const formData = new FormData()
+      formData.append('tipo', data.tipo)
+      formData.append('descripcion', data.descripcion)
+      formData.append('prioridad', data.prioridad)
+      formData.append('datosTramite', JSON.stringify({}))
+
+      // Agregar archivos si existen
+      selectedFiles.forEach(file => {
+        formData.append('documentos', file)
+      })
+
+      await onSubmit(formData)
+    } catch (error) {
+      console.error('Error creando trámite:', error)
     }
-    onSubmit(formData)
   }
 
   return (

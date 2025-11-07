@@ -16,18 +16,29 @@ class MLService {
         timeout: this.timeout
       })
       
-      if (response.data.success) {
-        return response.data.prediction
+      const data = response.data
+      
+      if (data.success) {
+        // Mapear la respuesta del servicio ML a la estructura esperada por el backend
+        return {
+          priority: data.priority, // 'URGENTE'
+          urgency_score: data.urgency_score, // 100
+          found_keywords: data.found_keywords ? data.found_keywords.map(kw => kw.palabra) : [], // Extraer las palabras
+          confidence: data.confidence,
+          // Podemos mantener otros campos si son necesarios
+          nivel: data.nivel,
+          model_version: data.model_version
+        }
       } else {
-        console.warn('ML Service returned error, using fallback:', response.data.error)
+        console.warn('ML Service returned error, using fallback:', data.error)
         return this.fallbackAnalysis(texto)
       }
     } catch (error) {
       console.error('Error calling ML service:', error.message)
-      // Fallback a análisis básico
       return this.fallbackAnalysis(texto)
     }
   }
+
 
   fallbackAnalysis(texto) {
     const palabrasUrgentes = [

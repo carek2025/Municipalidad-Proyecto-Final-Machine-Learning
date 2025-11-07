@@ -11,6 +11,8 @@ import Reportes from './pages/Reportes'
 import Perfil from './pages/Perfil'
 import Layout from './components/Layout/Layout'
 import LoadingSpinner from './components/ui/LoadingSpinner'
+// Agrega esta importación
+import TramiteDetails from './pages/TramiteDetails'
 import './App.css'
 
 // Configurar React Query
@@ -126,6 +128,8 @@ function AppRoutes() {
           </Layout>
         </ProtectedRoute>
       } />
+
+      <Route path="/tramites/:id" element={<TramiteDetails />} />
       
       {/* Ruta por defecto */}
       <Route path="/" element={

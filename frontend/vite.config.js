@@ -20,16 +20,30 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          charts: ['recharts'],
-          utils: ['date-fns', 'axios']
-        }
+    // Configuración CSS forzada
+    css: {
+      devSourcemap: true,
+      modules: {
+        localsConvention: 'camelCase'
       }
-    }
-  },
+    },
+    rollupOptions: {
+       output: {
+         manualChunks: {
+           vendor: ['react', 'react-dom'],
+           charts: ['recharts'],
+           utils: ['date-fns', 'axios']
+         },
+         // Forzar inclusión de CSS
+         assetFileNames: (assetInfo) => {
+           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+             return 'assets/index-[hash].css'
+           }
+           return 'assets/[name]-[hash][extname]'
+         }
+       }
+     }
+   },
   // Configuración para producción
   base: '/',
   define: {
